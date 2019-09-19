@@ -23,7 +23,6 @@ var neurosky = {
     ws.onmessage = function(evt) {
       // parse the data (sent as string) into a standard JSON object (much easier to use)
       var data = JSON.parse(evt.data);
-        console.log(data)
       // handle "eSense" data
       if (data.eSense) {
         neurosky.attention = data.eSense.attention;
@@ -33,7 +32,7 @@ var neurosky = {
       // handle "blinkStrength" data
       if (data.blinkStrength) {
         neurosky.blink = data.blinkStrength;
-        console.log('[blink] ' + neurosky.blink);
+        //console.log('[blink] ' + neurosky.blink);
       }
   
       // handle "poorSignal" data
