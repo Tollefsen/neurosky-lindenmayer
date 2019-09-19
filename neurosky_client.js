@@ -46,5 +46,6 @@ var neurosky = {
     ws.onclose = function() {
       // websocket is closed.
       console.log('WebSocket connection is closed...');
+      neurosky.connectedNeurosky = false;
     };
   }

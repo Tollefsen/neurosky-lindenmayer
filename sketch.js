@@ -83,7 +83,7 @@ function setup_controllers() {
 function setup() {
   var canvas = createCanvas(700, 700);
   canvas.parent('sketch');
-  frameRate(30);
+  frameRate(300);
   setup_controllers();
   generate();
   background(216, 226, 232);
@@ -99,25 +99,37 @@ function draw() {
 
   stroke(0, 40);
 
-  if(currentIndex < sentence.length) {
+  if(currentIndex < 20) {
+    
     let x = sentence.charAt(currentIndex);
     let ext = current_extension * (1 + random(-extension_chaos, extension_chaos));
     
     
     let ang = angle * (1 + random(-angle_chaos, angle_chaos));
     if (x == 'F') {
+      pop();
       line(0, 0, 0, -ext);
       translate(0, -ext);
+      push();
     } else if (x == '+') {
+      pop();
       rotate(-ang);
+      push();
     } else if (x == '-') {
+      pop();
       rotate(ang);
+      push();
     } else if (x == '[') {
+      pop();
+      push();
       push();
     } else if (x == ']') {
       pop();
+      pop();
+      push();
     }
   } else {
     noLoop();
   }
+  currentIndex++;
 }
