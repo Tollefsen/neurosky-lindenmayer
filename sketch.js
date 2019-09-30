@@ -21,6 +21,9 @@ let r2 = 'F[++F[-F]]F[-FF[F]]';
 let r3 = 'F[-FF[+F]]F[+F[+F]]';
 let r4 = 'F[-F[-F++F]][+F[--F]]F';
 
+
+
+
 function set_parametres() {
   rules = [{ in: axiom, out: r_input.value() }];
   number_of_gens = constrain(g_slider.value(), 1, 6);
@@ -113,14 +116,7 @@ function setup() {
 }
 
 function updateValues() {
-  if(neurosky.connectedNeurosky) {
-    const newASlider = neurosky.meditation / 100 * 15;
-
-
-    a_slider.value(newASlider + 5);
-    set_parametres();
-  }
-  
+  set_parametres();
 }
 
 
@@ -132,7 +128,7 @@ function draw() {
 
   stroke(0, 40);
 
-  for(var i = 0; i < 100; i++) {
+  for(var i = 0; i < 10; i++) {
     if(currentIndex < sentence.length) {
       pop();
       
