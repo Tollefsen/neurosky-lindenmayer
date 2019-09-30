@@ -1,6 +1,7 @@
 # neurosky-lindenmayer
 
 A lindenmayer tree generator that can be controlled with a NeuroSky headset.
+The lindenmayer implementation is ~stolen~ borrowed from kgolid/p5ycho.
 
 ## How to install
 

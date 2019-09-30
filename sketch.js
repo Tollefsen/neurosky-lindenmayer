@@ -114,12 +114,7 @@ function setup() {
 }
 
 function updateValues() {
-  if (neurosky.connectedNeurosky) {
-    const newASlider = (neurosky.meditation / 100) * 15;
-
-    a_slider.value(newASlider + 5);
-    set_parametres();
-  }
+  set_parametres();
 }
 
 function draw() {
@@ -129,7 +124,7 @@ function draw() {
 
   stroke(0, 40);
 
-  for (var i = 0; i < 100; i++) {
+  for (var i = 0; i < 10; i++) {
     if (currentIndex < sentence.length) {
       pop();
 
