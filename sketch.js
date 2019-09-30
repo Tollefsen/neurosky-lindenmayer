@@ -6,12 +6,14 @@ let rules = [];
 let number_of_gens;
 let extension, extension_chaos;
 let angle, angle_chaos;
+let speed;
 
 var email;
 var r_input;
 var g_slider;
 var e_slider, ec_slider;
 var a_slider, ac_slider;
+var speed_slider;
 
 let currentIndex = 0;
 
@@ -27,6 +29,7 @@ function set_parametres() {
   extension_chaos = constrain(ec_slider.value(), 0, 1);
   angle = PI / constrain(a_slider.value(), 5, 20);
   angle_chaos = constrain(ac_slider.value(), 0, 1);
+  speed = speed_slider.value();
 }
 
 function reset() {
@@ -87,6 +90,7 @@ function setup_controllers() {
   var ac_container = createDiv("&Delta;<sub>&phi;</sub> (0-1)").parent(
     "controller"
   );
+  var speed_container = createDiv("Speed").parent("controller");
 
   email = createInput("youremail", "text").parent(mail_container);
   r_input = createInput(r1, "text").parent(r_container);
@@ -95,6 +99,7 @@ function setup_controllers() {
   ec_slider = createInput(0.4, "number").parent(ec_container);
   a_slider = createInput(10, "number").parent(a_container);
   ac_slider = createInput(0.5, "number").parent(ac_container);
+  speed_slider = createInput(10, "number").parent(speed_container);
 
   generate_button.mousePressed(resetAll);
   save_button.mousePressed(saveDrawing);
@@ -124,7 +129,7 @@ function draw() {
 
   stroke(0, 40);
 
-  for (var i = 0; i < 10; i++) {
+  for (var i = 0; i < speed; i++) {
     if (currentIndex < sentence.length) {
       pop();
 
