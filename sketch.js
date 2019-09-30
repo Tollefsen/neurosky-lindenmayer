@@ -122,6 +122,21 @@ function setup() {
 function updateValues() {
   set_parametres();
 }
+let start_color = [139, 69, 19];
+let red_range = [15, 170],
+  green_range = [100, 220],
+  blue_range = [15, 130];
+
+let color_stack = [start_color];
+let c_step = 1;
+
+function randint(start, end) {
+  return start + Math.floor(Math.random() * (end - start + 1));
+}
+
+function clip(x, lower, upper) {
+  return Math.min(upper, Math.max(lower, x));
+}
 
 function draw() {
   updateValues();
@@ -133,12 +148,21 @@ function draw() {
   for (var i = 0; i < speed; i++) {
     if (currentIndex < sentence.length) {
       pop();
+      let stroke_color = color_stack.pop();
+
+      let c_i = randint(0, 2);
+      stroke_color[c_i] += randint(0, 1) ? c_step : -c_step;
+      stroke_color = stroke_color.map((c, i) =>
+        clip(c, ...[red_range, green_range, blue_range][i])
+      );
+      stroke(...stroke_color);
 
       let x = sentence.charAt(currentIndex);
       let ext =
         current_extension * (1 + random(-extension_chaos, extension_chaos));
 
       let ang = angle * (1 + random(-angle_chaos, angle_chaos));
+
       if (x == "F") {
         line(0, 0, 0, -ext);
         translate(0, -ext);
@@ -148,10 +172,13 @@ function draw() {
         rotate(ang);
       } else if (x == "[") {
         push();
+        color_stack.push(stroke_color);
       } else if (x == "]") {
         pop();
+        stroke(...color_stack.pop());
       }
       push();
+      color_stack.push(stroke_color);
     } else {
       noLoop();
     }
