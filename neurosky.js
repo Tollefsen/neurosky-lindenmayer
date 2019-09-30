@@ -3,37 +3,11 @@ var thinkgear = require('./neurosky_socket');
 
 var client = thinkgear.createClient({ enableRawOutput: false });
 
-var connected = false;
-
-// bind receive data event
-client.on('data', function(data){
-	// if websocket server is running
-	console.log(data)
-	if (wss) {
-		// broadcast this latest data packet to all connected clients
-        wss.broadcast(data);
-	}
-
-	if (!connected) {
-		console.log('[Neurosky] Connection established');
-		connected = !connected;
-	}
+const broadcastEvent = name => client.on(name, data => {
+	wss.broadcast({ name, ...data });
 });
 
-// bind receive data event
-client.on('blink_data', function(data){
-	// if websocket server is running
-	if (wss) {
-		// broadcast this latest data packet to all connected clients
-		wss.broadcast(data);
-		console.log(data)
-	}
-});
-
-client.on('error', function(error) {
-	console.log('[Neurosky] Unable to connect: ', error.code);
-	console.error(error)
-});
+['meditation', 'attention', 'blink', 'signal', 'status'].forEach(broadcastEvent);
 
 // initiate connection
 client.connect();
@@ -48,19 +22,19 @@ const clients = []
 
 // broadcast function (broadcasts message to all clients)
 wss.broadcast = function(data) {
-	  const msg =  JSON.stringify(data)
-    for (var i in clients) {
-      clients[i].send(msg);
-		}
+	const msg =  JSON.stringify(data);
+	clients.forEach(x => x.send(msg));
 };
 
 // bind each connection
 wss.on('connection', function(ws) {
-		clients.push(ws)
+	clients.push(ws)
+
     ws.on('message', function(message) {
         console.log('[Websocket][CLIENT] %s', message);
-    });
-		console.log('[Websocket] Listening on port 8080');
+	});
+	
+	console.log('[Websocket] Listening on port 8080');
 });
 /** END start our websocket server **/
 

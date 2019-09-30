@@ -2,9 +2,12 @@
 var neurosky = {
     connectedNeurosky: false,
     attention: 0,
+    attentionDelta: 0,
     meditation: 0,
+    meditationDelta: 0,
     blink: 0,
-    poorSignalLevel: 0,
+    blinkDelta: 0,
+    signal: 0
   };
   
   if ("WebSocket" in window) {
@@ -21,25 +24,9 @@ var neurosky = {
   
     // whenever websocket server transmit a message, do this stuff
     ws.onmessage = function(evt) {
-      // parse the data (sent as string) into a standard JSON object (much easier to use)
-      var data = JSON.parse(evt.data);
-      // handle "eSense" data
-      if (data.eSense) {
-        neurosky.attention = data.eSense.attention;
-        neurosky.meditation = data.eSense.meditation;
-      }
-  
-      // handle "blinkStrength" data
-      if (data.blinkStrength) {
-        neurosky.blink = data.blinkStrength;
-        //console.log('[blink] ' + neurosky.blink);
-      }
-  
-      // handle "poorSignal" data
-      if (data.poorSignalLevel != null) {
-        neurosky.poorSignalLevel = parseInt(data.poorSignalLevel);
-      }
-      //  console.log('A', neurosky.attention, 'M', neurosky.meditation);
+      const { name, value, delta } = JSON.parse(evt.data);
+      neurosky[name] = value;
+      if (delta) neurosky[name + "Delta"] = delta;
     };
   
     // when websocket closes connection, do this stuff
