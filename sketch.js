@@ -1,5 +1,4 @@
-
-let axiom = 'F';
+let axiom = "F";
 let sentence = axiom;
 let gen = 0;
 
@@ -16,10 +15,10 @@ var a_slider, ac_slider;
 
 let currentIndex = 0;
 
-let r1 = 'FF[+F][--FF][-F+F]';
-let r2 = 'F[++F[-F]]F[-FF[F]]';
-let r3 = 'F[-FF[+F]]F[+F[+F]]';
-let r4 = 'F[-F[-F++F]][+F[--F]]F';
+let r1 = "FF[+F][--FF][-F+F]";
+let r2 = "F[++F[-F]]F[-FF[F]]";
+let r3 = "F[-FF[+F]]F[+F[+F]]";
+let r4 = "F[-F[-F++F]][+F[--F]]F";
 
 function set_parametres() {
   rules = [{ in: axiom, out: r_input.value() }];
@@ -30,8 +29,6 @@ function set_parametres() {
   angle_chaos = constrain(ac_slider.value(), 0, 1);
 }
 
-
-
 function reset() {
   set_parametres();
   sentence = axiom;
@@ -41,7 +38,7 @@ function reset() {
 function generate() {
   reset();
   while (gen < number_of_gens) {
-    let new_sentence = '';
+    let new_sentence = "";
     for (var i = 0; i < sentence.length; i++) {
       let x = sentence.charAt(i);
       let found = false;
@@ -66,34 +63,38 @@ function resetAll() {
   clear();
   currentIndex = 0;
   for (let p = 0; p < 10; p++) {
-    pop();  
+    pop();
   }
   loop();
 }
 
 function saveDrawing() {
-  save(email.value() + '.png');
+  save(email.value() + ".png");
 }
 
 function setup_controllers() {
-  var generate_button = createButton('generate').parent('controller');
-  var save_button = createButton('save').parent('controller');
-  
-  var mail_container = createDiv('email').parent('controller');
-  var r_container = createDiv('&rho; ').parent('controller');
-  var g_container = createDiv('&gamma; (1-6)').parent('controller');
-  var e_container = createDiv('&eta; (100-500)').parent('controller');
-  var ec_container = createDiv('&Delta;<sub>&eta;</sub> (0-1)').parent('controller');
-  var a_container = createDiv('&phi; (5-20)').parent('controller');
-  var ac_container = createDiv('&Delta;<sub>&phi;</sub> (0-1)').parent('controller');
+  var generate_button = createButton("generate").parent("controller");
+  var save_button = createButton("save").parent("controller");
 
-  email = createInput('youremail', 'text').parent(mail_container);
-  r_input = createInput(r1, 'text').parent(r_container);
-  g_slider = createInput(5, 'number').parent(g_container);
-  e_slider = createInput(200, 'number').parent(e_container);
-  ec_slider = createInput(0.4, 'number').parent(ec_container);
-  a_slider = createInput(10, 'number').parent(a_container);
-  ac_slider = createInput(0.5, 'number').parent(ac_container);
+  var mail_container = createDiv("email").parent("controller");
+  var r_container = createDiv("&rho; ").parent("controller");
+  var g_container = createDiv("&gamma; (1-6)").parent("controller");
+  var e_container = createDiv("&eta; (100-500)").parent("controller");
+  var ec_container = createDiv("&Delta;<sub>&eta;</sub> (0-1)").parent(
+    "controller"
+  );
+  var a_container = createDiv("&phi; (5-20)").parent("controller");
+  var ac_container = createDiv("&Delta;<sub>&phi;</sub> (0-1)").parent(
+    "controller"
+  );
+
+  email = createInput("youremail", "text").parent(mail_container);
+  r_input = createInput(r1, "text").parent(r_container);
+  g_slider = createInput(5, "number").parent(g_container);
+  e_slider = createInput(200, "number").parent(e_container);
+  ec_slider = createInput(0.4, "number").parent(ec_container);
+  a_slider = createInput(10, "number").parent(a_container);
+  ac_slider = createInput(0.5, "number").parent(ac_container);
 
   generate_button.mousePressed(resetAll);
   save_button.mousePressed(saveDrawing);
@@ -103,7 +104,7 @@ function setup_controllers() {
 
 function setup() {
   var canvas = createCanvas(700, 700);
-  canvas.parent('sketch');
+  canvas.parent("sketch");
   frameRate(60);
   setup_controllers();
   generate();
@@ -113,17 +114,13 @@ function setup() {
 }
 
 function updateValues() {
-  if(neurosky.connectedNeurosky) {
-    const newASlider = neurosky.meditation / 100 * 15;
-
+  if (neurosky.connectedNeurosky) {
+    const newASlider = (neurosky.meditation / 100) * 15;
 
     a_slider.value(newASlider + 5);
     set_parametres();
   }
-  
 }
-
-
 
 function draw() {
   updateValues();
@@ -132,25 +129,25 @@ function draw() {
 
   stroke(0, 40);
 
-  for(var i = 0; i < 100; i++) {
-    if(currentIndex < sentence.length) {
+  for (var i = 0; i < 100; i++) {
+    if (currentIndex < sentence.length) {
       pop();
-      
+
       let x = sentence.charAt(currentIndex);
-      let ext = current_extension * (1 + random(-extension_chaos, extension_chaos));
-      
-      
+      let ext =
+        current_extension * (1 + random(-extension_chaos, extension_chaos));
+
       let ang = angle * (1 + random(-angle_chaos, angle_chaos));
-      if (x == 'F') {
+      if (x == "F") {
         line(0, 0, 0, -ext);
         translate(0, -ext);
-      } else if (x == '+') {
+      } else if (x == "+") {
         rotate(-ang);
-      } else if (x == '-') {
+      } else if (x == "-") {
         rotate(ang);
-      } else if (x == '[') {
+      } else if (x == "[") {
         push();
-      } else if (x == ']') {
+      } else if (x == "]") {
         pop();
       }
       push();
@@ -159,5 +156,4 @@ function draw() {
     }
     currentIndex++;
   }
-  
 }
