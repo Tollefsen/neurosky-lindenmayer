@@ -116,6 +116,7 @@ function setup() {
   background(216, 226, 232);
   stroke(0, 40);
   resetMatrix();
+  noFill();
 }
 
 function updateValues() {
@@ -139,7 +140,7 @@ function draw() {
 
       let ang = angle * (1 + random(-angle_chaos, angle_chaos));
       if (x == "F") {
-        line(0, 0, 0, -ext);
+        line(0, 0, 0, -ext - randint(0, 20));
         translate(0, -ext);
       } else if (x == "+") {
         rotate(-ang);
@@ -148,6 +149,16 @@ function draw() {
       } else if (x == "[") {
         push();
       } else if (x == "]") {
+        curve(
+          0,
+          0,
+          0,
+          -ext - randint(0, 20),
+          0,
+          0,
+          randint(-50, 50),
+          randint(-50, 50)
+        );
         pop();
       }
       push();
@@ -156,4 +167,8 @@ function draw() {
     }
     currentIndex++;
   }
+}
+
+function randint(min, max) {
+  return Math.random() * (max - min) + min;
 }
