@@ -74,7 +74,6 @@ function resetAll() {
 
 function saveDrawing() {
   let data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
-  console.log(canvas.toDataURL('image/png'))
   let http = new XMLHttpRequest();
   let url = '/save/' + email.value();
   http.open('POST', url, true);
