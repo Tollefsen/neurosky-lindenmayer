@@ -22,11 +22,15 @@ let r2 = "F[++F[-F]]F[-FF[F]]";
 let r3 = "F[-FF[+F]]F[+F[+F]]";
 let r4 = "F[-F[-F++F]][+F[--F]]F";
 
+const NEUROSKY_ON = false;
+
 function set_parametres() {
   rules = [{ in: axiom, out: r_input.value() }];
   number_of_gens = constrain(g_slider.value(), 1, 8);
+  if (NEUROSKY_ON) e_slider.value(100 + neurosky.attention * 2);
   extension = constrain(e_slider.value(), 100, 500);
   extension_chaos = constrain(ec_slider.value(), 0, 1);
+  if (NEUROSKY_ON) a_slider.value(Math.round(5 + neurosky.meditation / 6.7));
   angle = PI / constrain(a_slider.value(), 5, 20);
   angle_chaos = constrain(ac_slider.value(), 0, 1);
   speed = speed_slider.value();
@@ -34,12 +38,14 @@ function set_parametres() {
 
 function reset() {
   set_parametres();
+
   sentence = axiom;
   gen = 0;
 }
 
 function generate() {
   reset();
+  resetCustom();
   while (gen < number_of_gens) {
     let new_sentence = "";
     for (var i = 0; i < sentence.length; i++) {
@@ -63,6 +69,7 @@ function generate() {
 
 function resetAll() {
   generate();
+
   resetMatrix();
   clear();
   currentIndex = 0;
@@ -122,13 +129,6 @@ function setup() {
 function updateValues() {
   set_parametres();
 }
-let start_color = [139, 69, 19];
-let red_range = [15, 170],
-  green_range = [100, 220],
-  blue_range = [15, 130];
-
-let color_stack = [start_color];
-let c_step = 1;
 
 function randint(start, end) {
   return start + Math.floor(Math.random() * (end - start + 1));
@@ -138,32 +138,62 @@ function clip(x, lower, upper) {
   return Math.min(upper, Math.max(lower, x));
 }
 
+function popAll() {
+  stroke_color = color_stack.pop();
+  recursion_depth -= 1;
+  pop();
+  strokeWeight(draw_width / pow(recursion_depth, 1.5));
+  stroke(...stroke_color);
+}
+
+function pushAll() {
+  push();
+  color_stack.push(stroke_color);
+  recursion_depth += 1;
+}
+
+function mutateColor() {
+  let c_i = randint(0, 2);
+  stroke_color[c_i] += randint(0, 1) ? c_step : -c_step;
+  stroke_color = stroke_color.map((c, i) =>
+    clip(c, ...[red_range, green_range, blue_range][i])
+  );
+  stroke(...stroke_color);
+}
+
+let recursion_depth;
+let draw_width;
+let stroke_color;
+let red_range, green_range, blue_range;
+let color_stack;
+let c_step;
+function resetCustom() {
+  recursion_depth = 2;
+  draw_width = 10;
+  stroke_color = [139, 69, 19];
+  red_range = [15, 170];
+  green_range = [100, 220];
+  blue_range = [15, 130];
+  color_stack = [stroke_color];
+  c_step = 3;
+}
+
 function draw() {
   updateValues();
   var current_extension = extension * pow(0.5, gen);
   translate(width / 2, height);
 
-  stroke(0, 40);
-
   for (var i = 0; i < speed; i++) {
     if (currentIndex < sentence.length) {
-      pop();
-      let stroke_color = color_stack.pop();
-
-      let c_i = randint(0, 2);
-      stroke_color[c_i] += randint(0, 1) ? c_step : -c_step;
-      stroke_color = stroke_color.map((c, i) =>
-        clip(c, ...[red_range, green_range, blue_range][i])
-      );
-      stroke(...stroke_color);
+      popAll();
 
       let x = sentence.charAt(currentIndex);
       let ext =
         current_extension * (1 + random(-extension_chaos, extension_chaos));
-
       let ang = angle * (1 + random(-angle_chaos, angle_chaos));
 
       if (x == "F") {
+        mutateColor();
         line(0, 0, 0, -ext);
         translate(0, -ext);
       } else if (x == "+") {
@@ -171,17 +201,15 @@ function draw() {
       } else if (x == "-") {
         rotate(ang);
       } else if (x == "[") {
-        push();
-        color_stack.push(stroke_color);
+        pushAll();
       } else if (x == "]") {
-        pop();
-        stroke(...color_stack.pop());
+        popAll();
       }
-      push();
-      color_stack.push(stroke_color);
+      pushAll();
     } else {
       noLoop();
     }
+
     currentIndex++;
   }
 }
