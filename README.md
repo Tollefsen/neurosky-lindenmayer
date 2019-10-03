@@ -2,13 +2,14 @@
 
 A lindenmayer tree generator that can be controlled with a NeuroSky headset.
 The lindenmayer implementation is ~stolen~ borrowed from kgolid/p5ycho.
+The neurosky setup is ~stolen~ borrowed from draperunner/cogs189.
 
 ## How to install
 
 1. Install the [Neurosky Brainwave Starter Kit](http://developer.neurosky.com/docs/doku.php?id=mindwavemobile)
 2. Install [node.js](https://nodejs.org/en/download/).
-3. Get project files: `git clone git@github.com:draperunner/cogs189.git`
-4. Access the new directory: `cd cogs189`
+3. Get project files: `git clone git@github.com:Tollefsen/neurosky-lidenmayer.git`
+4. Access the new directory: `cd neurosky-lidenmayer`
 5. Install: `npm install`
 
 
