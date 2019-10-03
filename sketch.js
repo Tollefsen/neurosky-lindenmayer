@@ -62,6 +62,7 @@ function generate() {
 }
 
 function resetAll() {
+  generate();
   resetMatrix();
   clear();
   currentIndex = 0;
