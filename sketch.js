@@ -129,6 +129,10 @@ function draw() {
   translate(width / 2, height);
 
   stroke(0, 40);
+  strokeWeight(5);
+  line(0, 0, 0, -50);
+
+  strokeWeight(1);
 
   for (var i = 0; i < speed; i++) {
     if (currentIndex < sentence.length) {

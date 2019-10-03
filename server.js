@@ -1,5 +1,5 @@
 var express = require("express");
-var neurosky = require("./neurosky");
+//var neurosky = require("./neurosky");
 var app = express();
 
 app.use(express.static(__dirname + "/"));
