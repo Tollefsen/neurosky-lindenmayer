@@ -73,7 +73,13 @@ function resetAll() {
 }
 
 function saveDrawing() {
-  save(email.value() + ".png");
+  let data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+  console.log(canvas.toDataURL('image/png'))
+  let http = new XMLHttpRequest();
+  let url = '/save/' + email.value();
+  http.open('POST', url, true);
+  http.send(data);
+  //save(email.value() + ".png");
 }
 
 function setup_controllers() {
