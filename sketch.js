@@ -24,7 +24,7 @@ let r4 = "F[-F[-F++F]][+F[--F]]F";
 
 function set_parametres() {
   rules = [{ in: axiom, out: r_input.value() }];
-  number_of_gens = constrain(g_slider.value(), 1, 6);
+  number_of_gens = constrain(g_slider.value(), 1, 8);
   extension = constrain(e_slider.value(), 100, 500);
   extension_chaos = constrain(ec_slider.value(), 0, 1);
   angle = PI / constrain(a_slider.value(), 5, 20);
@@ -82,7 +82,7 @@ function setup_controllers() {
 
   var mail_container = createDiv("email").parent("controller");
   var r_container = createDiv("&rho; ").parent("controller");
-  var g_container = createDiv("&gamma; (1-6)").parent("controller");
+  var g_container = createDiv("&gamma; (1-8)").parent("controller");
   var e_container = createDiv("&eta; (100-500)").parent("controller");
   var ec_container = createDiv("&Delta;<sub>&eta;</sub> (0-1)").parent(
     "controller"
