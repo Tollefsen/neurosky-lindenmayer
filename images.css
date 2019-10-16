@@ -4,10 +4,28 @@
 	box-sizing: border-box;
 }
 
+* {
+    margin:0;
+    padding:0;
+    font-family: arial, sans-serif;
+    font-size: 10pt;
+    letter-spacing: .2em;
+    font-weight: 100;
+    color: rgba(0,0,0,0.5);
+    box-sizing: border-box;
+  }
+
 body {
 	font-family: 'Raleway';
 	margin: 0;
 }
+a {display:block; margin:15px;}
+#images {
+    position: fixed;
+    top: 0;
+	right: 0;
+	z-index: 1000;
+  }
 
 .title {
 	background: rgba(255, 255, 255, 0.7);

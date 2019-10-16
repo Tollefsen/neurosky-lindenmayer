@@ -53,3 +53,9 @@
     outline:0;
     cursor:pointer;
   }
+
+  #images {
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
