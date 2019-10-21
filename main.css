@@ -224,3 +224,9 @@ fab:active {
   padding:5px 0;
   text-align:left;
 }
+
+#images {
+  position: fixed;
+  top: 0;
+  right: 0;
+}
