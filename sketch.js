@@ -80,10 +80,12 @@ function resetAll() {
 }
 
 function saveDrawing() {
-  let data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+  let data = canvas
+    .toDataURL("image/png")
+    .replace(/^data:image\/png;base64,/, "");
   let http = new XMLHttpRequest();
-  let url = '/save/' + email.value();
-  http.open('POST', url, true);
+  let url = "/save/" + email.value();
+  http.open("POST", url, true);
   http.send(data);
   //save(email.value() + ".png");
 }
@@ -105,7 +107,7 @@ function setup_controllers() {
 
   r_input = createInput(r1, "text").parent(r_container);
   g_slider = createInput(5, "number").parent(g_container);
-  e_slider = createInput(200, "number").parent(e_container);
+  e_slider = createInput(250, "number").parent(e_container);
   ec_slider = createInput(0.4, "number").parent(ec_container);
   a_slider = createInput(10, "number").parent(a_container);
   ac_slider = createInput(0.5, "number").parent(ac_container);
@@ -117,7 +119,7 @@ function setup_controllers() {
 }
 
 function setup() {
-  var canvas = createCanvas(900, 900);
+  var canvas = createCanvas(window.innerWidth, window.innerHeight - 100);
   canvas.parent("sketch");
   frameRate(60);
   setup_controllers();
