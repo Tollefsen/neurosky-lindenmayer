@@ -1,30 +1,113 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-47794848-2"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-<head>      	
-  <!-- Global site tag (gtag.js) - Google Analytics -->     	
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47794848-2"></script>     	
-  <script>     	
-  window.dataLayer = window.dataLayer || [];     	
-  function gtag(){dataLayer.push(arguments);}     	
-  gtag('js', new Date());     	
-        
-  gtag('config', 'UA-47794848-2');     	
+      gtag("config", "UA-47794848-2");
+    </script>
+    <meta charset="utf-8" />
+    <title>Lindenmayer Systems</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/addons/p5.dom.js"></script>
+
+    <link href="main.css" rel="stylesheet" />
+    <script type="text/javascript" src="neurosky_client.js"></script>
+    <script src="sketch.js"></script>
+  </head>
+
+  <body>
+    <div id="sketch"></div>
+    <div id="controller"></div>
+
+    <nav class="navigation">
+      <div class="leaderboard" id="leader-board">
+        <h1>
+          <i class="fa fa-trophy icon"></i>
+          Top 5 players
+        </h1>
+        <ol>
+          <li>
+            <span>Erlend Løkken</span>
+            <small>12.2 sec</small>
+          </li>
+          <li>
+            <span>Erlend Løkken</span>
+            <small>12.2 sec</small>
+          </li>
+          <li>
+            <span>Erlend Løkken</span>
+            <small>12.2 sec</small>
+          </li>
+          <li>
+            <span>Erlend Løkken</span>
+            <small>12.2 sec</small>
+          </li>
+          <li>
+            <span>Erlend Løkken</span>
+            <small>12.2 sec</small>
+          </li>
+        </ol>
+      </div>
+      <div class="settings" id="settings">
+        <h1>
+          <i class="fa fa-cog icon"></i>
+          Settings
+        </h1>
+      </div>
+      <div class="buttons">
+        <button
+          onclick="onLeaderboardClick()"
+          style="background: #FF9999"
+          class="fab"
+        >
+          <i class="fa fa-trophy icon"></i>
+        </button>
+        <button
+          onclick="onSettingsClick()"
+          style="background: #B1E8FF"
+          class="fab"
+        >
+          <i class="fa fa-cog icon"></i>
+        </button>
+      </div>
+    </nav>
+  </body>
+
+  <script>
+    const leaderBoard = document.getElementById("leader-board");
+    const settings = document.getElementById("settings");
+
+    let settingsVisible = false;
+    let scoreboardVisible = false;
+
+    const onLeaderboardClick = () => {
+      settingsVisible = false;
+      scoreboardVisible = !scoreboardVisible;
+      leaderBoard.classList.toggle("visible");
+      settings.classList.remove("visible");
+    };
+
+    const onSettingsClick = () => {
+      scoreboardVisible = false;
+      settingsVisible = !settingsVisible;
+      settings.classList.toggle("visible");
+      leaderBoard.classList.remove("visible");
+    };
   </script>
-  <meta charset="utf-8">
-  <title>Lindenmayer Systems</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/p5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/addons/p5.dom.js"></script>
-
-  
-  <link href="main.css" rel="stylesheet">
-  <script type="text/javascript" src="neurosky_client.js"></script>
-  <script src="sketch.js"></script>
-</head>
-
-<body>
-  <div id="sketch"></div>
-  <div id="controller"></div>
-</body>
-
 </html>

@@ -89,23 +89,20 @@ function saveDrawing() {
 }
 
 function setup_controllers() {
-  var generate_button = createButton("generate").parent("controller");
-  var save_button = createButton("save").parent("controller");
+  var generate_button = createButton("Start").parent("controller");
 
-  var mail_container = createDiv("email").parent("controller");
-  var r_container = createDiv("&rho; ").parent("controller");
-  var g_container = createDiv("&gamma; (1-8)").parent("controller");
-  var e_container = createDiv("&eta; (100-500)").parent("controller");
+  var r_container = createDiv("&rho; ").parent("settings");
+  var g_container = createDiv("&gamma; (1-8)").parent("settings");
+  var e_container = createDiv("&eta; (100-500)").parent("settings");
   var ec_container = createDiv("&Delta;<sub>&eta;</sub> (0-1)").parent(
-    "controller"
+    "settings"
   );
-  var a_container = createDiv("&phi; (5-20)").parent("controller");
+  var a_container = createDiv("&phi; (5-20)").parent("settings");
   var ac_container = createDiv("&Delta;<sub>&phi;</sub> (0-1)").parent(
-    "controller"
+    "settings"
   );
-  var speed_container = createDiv("Speed").parent("controller");
+  var speed_container = createDiv("Speed").parent("settings");
 
-  email = createInput("youremail", "text").parent(mail_container);
   r_input = createInput(r1, "text").parent(r_container);
   g_slider = createInput(5, "number").parent(g_container);
   e_slider = createInput(200, "number").parent(e_container);
@@ -115,13 +112,12 @@ function setup_controllers() {
   speed_slider = createInput(10, "number").parent(speed_container);
 
   generate_button.mousePressed(resetAll);
-  save_button.mousePressed(saveDrawing);
 
   set_parametres();
 }
 
 function setup() {
-  var canvas = createCanvas(700, 700);
+  var canvas = createCanvas(900, 900);
   canvas.parent("sketch");
   frameRate(60);
   setup_controllers();
