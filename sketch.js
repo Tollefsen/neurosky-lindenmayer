@@ -23,6 +23,8 @@ var time;
 
 let currentIndex = 0;
 
+let running = false;
+
 let r1 = "FF[+F][--FF][-F+F]";
 let r2 = "F[++F[-F]]F[-FF[F]]";
 let r3 = "F[-FF[+F]]F[+F[+F]]";
@@ -43,8 +45,6 @@ function set_parametres() {
 
   speed = speed_slider.value();
   meditation = meditation_slider.value();
-
-  updateSignalIndicator(neurosky.signal);
 }
 
 var lastSignal = null;
@@ -103,6 +103,7 @@ function generate() {
 
 function resetAll() {
   timer.start();
+  running = true;
   resetMatrix();
   clear();
 
@@ -165,7 +166,7 @@ function setup() {
   background(216, 226, 232);
   stroke(0, 40);
   resetMatrix();
-  noLoop();
+  loop();
 }
 
 function updateValues() {
@@ -226,6 +227,10 @@ function resetCustom() {
 }
 
 function draw() {
+  updateSignalIndicator(neurosky.signal);
+  if (!running) {
+    return;
+  }
   popAll();
 
   updateValues();
