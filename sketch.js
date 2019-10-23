@@ -139,6 +139,7 @@ function setup() {
   background(216, 226, 232);
   stroke(0, 40);
   resetMatrix();
+  noLoop();
 }
 
 function updateValues() {
