@@ -74,6 +74,7 @@ function generate() {
 }
 
 function resetAll() {
+  timer.start();
   resetMatrix();
   clear();
 
@@ -232,6 +233,7 @@ function draw() {
       }
     } else {
       noLoop();
+      timer.stop();
     }
     currentIndex++;
   }
