@@ -1,4 +1,4 @@
-const NEUROSKY_ON = false;
+const NEUROSKY_ON = true;
 
 let axiom = "F";
 let sentence = axiom;
@@ -43,6 +43,36 @@ function set_parametres() {
 
   speed = speed_slider.value();
   meditation = meditation_slider.value();
+
+  updateSignalIndicator(neurosky.signal);
+}
+
+var lastSignal = null;
+function updateSignalIndicator(signal) {
+  function drawPieSlice(
+    ctx,
+    centerX,
+    centerY,
+    radius,
+    startAngle,
+    endAngle,
+    color
+  ) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(centerX, centerY);
+    ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+    ctx.closePath();
+    ctx.fill();
+  }
+  if (lastSignal === signal) return;
+  lastSignal = signal;
+
+  const canvas = document.querySelector(".signal_indicator");
+  let ctx = canvas.getContext("2d");
+
+  ctx.clearRect(0, 0, 50, 50);
+  drawPieSlice(ctx, 25, 25, 25, 0, (signal / 100) * 2 * Math.PI, "#13EBA2");
 }
 
 function reset() {
@@ -111,7 +141,7 @@ function setup_controllers() {
   var speed_container = createDiv("Speed").parent("settings");
   var meditation_container = createDiv("Meditation (0-1)").parent("settings");
 
-  player_name = createInput("", "text").parent('flesk');
+  player_name = createInput("", "text").parent("flesk");
   r_input = createInput(r1, "text").parent(r_container);
   g_slider = createInput(5, "number").parent(g_container);
   e_slider = createInput(250, "number").parent(e_container);
@@ -231,7 +261,7 @@ function draw() {
       time = timer.stop();
       const pos = currentPosition(time);
       let positionSuffix = "";
-      switch(pos) {
+      switch (pos) {
         case 1:
           positionSuffix = "st";
           break;
@@ -242,18 +272,17 @@ function draw() {
           positionSuffix = "rd";
           break;
         default:
-          positionSuffix = 'th';
+          positionSuffix = "th";
           break;
       }
-      if(pos <= 5) {
-        if(pos === 1) {
-          modalHeader.innerText = `AMAZING! YOUR FOCUS IS IMPECCABLE (${pos}${positionSuffix})`
-
+      if (pos <= 5) {
+        if (pos === 1) {
+          modalHeader.innerText = `AMAZING! YOUR FOCUS IS IMPECCABLE (${pos}${positionSuffix})`;
         } else {
-          modalHeader.innerText = `CONGRATZ, YOU PLACED ${pos}${positionSuffix}`
+          modalHeader.innerText = `CONGRATZ, YOU PLACED ${pos}${positionSuffix}`;
         }
       } else {
-        modalHeader.innerText = `YOU PLACED ${pos}th, PLEASE FOCUS NEXT TIME`
+        modalHeader.innerText = `YOU PLACED ${pos}th, PLEASE FOCUS NEXT TIME`;
       }
       openModal();
     }
