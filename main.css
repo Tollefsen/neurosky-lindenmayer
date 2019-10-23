@@ -234,3 +234,12 @@ fab:active {
   top: 0;
   right: 0;
 }
+
+#timer {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+  margin: 3rem 0;
+  font-size: 3rem;
+}
