@@ -1,0 +1,70 @@
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.3s ease-in;
+}
+
+.modal:target {
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  width: 60%;
+  background-color: #bccedd;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  animation: slideIn 0.3s ease-in-out;
+}
+
+.modal-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-body input {
+    height: 40px;
+    border: 0;
+    background: #fff;
+    width: 610px;
+    margin: 0;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-footer button {
+  padding: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    top: 200px;
+  }
+  to {
+    top: 0;
+  }
+}

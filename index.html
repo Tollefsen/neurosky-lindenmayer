@@ -28,8 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.10/addons/p5.dom.js"></script>
 
     <link href="main.css" rel="stylesheet" />
-    <script type="text/javascript" src="neurosky_client.js"></script>
-    <script src="sketch.js"></script>
+    <link href="modal.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -43,7 +42,7 @@
           <i class="fa fa-trophy icon"></i>
           Top 5 players
         </h1>
-        <ol id="leaderboard">
+        <ol id="leader-board-list">
           
         </ol>
       </div>
@@ -70,11 +69,29 @@
         </button>
       </div>
     </nav>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modal-header"></h2>
+            <br>
+            <h4>Enter your name</h4>
+          </div>
+        <div class="modal-body" id="flesk">
+        </div>
+        <div class="modal-footer">
+            <button style="background: #E7E7E7" onclick="closeModal()">Cancel</button>
+            <button style="background: #A1F5E3" onclick="save()">Save</button>
+        </div>
+      </div>
+    </div>
   </body>
 
   <script>
     const leaderBoard = document.getElementById("leader-board");
     const settings = document.getElementById("settings");
+    const modal = document.getElementById("modal");
+    const modalHeader = document.getElementById("modal-header");
 
     let settingsVisible = false;
     let scoreboardVisible = false;
@@ -92,7 +109,27 @@
       settings.classList.toggle("visible");
       leaderBoard.classList.remove("visible");
     };
+
+    const save = () => {
+      const player = {
+        name: player_name.value(),
+        score: time
+      };
+      player_name.value('');
+      addPlayer(player);
+      closeModal();
+    }
+
+    const closeModal = () => {
+      modal.style.display = 'none';
+    }
+
+    const openModal = () => {
+      modal.style.display = 'block';
+    }
   </script>
+  <script type="text/javascript" src="neurosky_client.js"></script>
+  <script src="sketch.js"></script>
+  <script src="leaderboard.js"></script>  
   <script type="text/javascript" src="emojiCursor.js"></script>
-  <script src="leaderboard.js"></script>
 </html>

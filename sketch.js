@@ -11,7 +11,7 @@ let angle, angle_chaos;
 let speed;
 let meditation;
 
-var email;
+var player_name;
 var r_input;
 var g_slider;
 var e_slider, ec_slider;
@@ -19,6 +19,7 @@ var a_slider, ac_slider;
 var speed_slider;
 var meditation_slider;
 var start_time;
+var time;
 
 let currentIndex = 0;
 
@@ -42,9 +43,6 @@ function set_parametres() {
 
   speed = speed_slider.value();
   meditation = meditation_slider.value();
-  timer_slider.value(
-    Math.round((new Date().getTime() - start_time) / 100.0) / 10
-  );
 }
 
 function reset() {
@@ -91,7 +89,7 @@ function saveDrawing() {
     .toDataURL("image/png")
     .replace(/^data:image\/png;base64,/, "");
   let http = new XMLHttpRequest();
-  let url = "/save/" + email.value();
+  let url = "/save/" + player_name.value();
   http.open("POST", url, true);
   http.send(data);
   //save(email.value() + ".png");
@@ -100,8 +98,6 @@ function saveDrawing() {
 function setup_controllers() {
   var generate_button = createButton("Start").parent("controller");
 
-  var timer_container = createDiv("time").parent("settings");
-  var mail_container = createDiv("email").parent("settings");
   var r_container = createDiv("&rho; ").parent("settings");
   var g_container = createDiv("&gamma; (1-8)").parent("settings");
   var e_container = createDiv("&eta; (100-500)").parent("settings");
@@ -115,8 +111,7 @@ function setup_controllers() {
   var speed_container = createDiv("Speed").parent("settings");
   var meditation_container = createDiv("Meditation (0-1)").parent("settings");
 
-  timer_slider = createInput(0, "number").parent(timer_container);
-  email = createInput("youremail", "text").parent(mail_container);
+  player_name = createInput("", "text").parent('flesk');
   r_input = createInput(r1, "text").parent(r_container);
   g_slider = createInput(5, "number").parent(g_container);
   e_slider = createInput(250, "number").parent(e_container);
@@ -233,7 +228,34 @@ function draw() {
       }
     } else {
       noLoop();
-      timer.stop();
+      time = timer.stop();
+      const pos = currentPosition(time);
+      let positionSuffix = "";
+      switch(pos) {
+        case 1:
+          positionSuffix = "st";
+          break;
+        case 2:
+          positionSuffix = "nd";
+          break;
+        case 3:
+          positionSuffix = "rd";
+          break;
+        default:
+          positionSuffix = 'th';
+          break;
+      }
+      if(pos <= 5) {
+        if(pos === 1) {
+          modalHeader.innerText = `AMAZING! YOUR FOCUS IS IMPECCABLE (${pos}${positionSuffix})`
+
+        } else {
+          modalHeader.innerText = `CONGRATZ, YOU PLACED ${pos}${positionSuffix}`
+        }
+      } else {
+        modalHeader.innerText = `YOU PLACED ${pos}th, PLEASE FOCUS NEXT TIME`
+      }
+      openModal();
     }
     currentIndex++;
   }
