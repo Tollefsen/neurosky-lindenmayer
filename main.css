@@ -1,62 +1,68 @@
 * {
-    margin:0;
-    padding:0;
-    font-family: arial, sans-serif;
-    font-size: 10pt;
-    letter-spacing: .2em;
-    font-weight: 100;
-    color: rgba(0,0,0,0.5);
-    box-sizing: border-box;
-  }
-  
-  h1 {font-size:2em;}
-  a {display:block; margin:15px;}
-  
-  input[type=text], input[type=number] {
-    background: none;
-    padding:5px;
-    border: 1px solid rgba(0,0,0,0.2);
-    outline: 0;
-    float:right;
-    margin-left:20px;
-    margin-top:-6px;
-    width:180px;
-  }
-  
-  body {
-    background-color: rgb(216, 226, 232);
-    text-align: center;
-  }
-  
-  #controller {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding:20px;
-    padding-bottom:10px;
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-  }
+  margin: 0;
+  padding: 0;
+  font-family: arial, sans-serif;
+  font-size: 10pt;
+  letter-spacing: 0.2em;
+  font-weight: 100;
+  color: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
 
-  button {
-    box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 0px 4px 12px -7px rgba(0, 0, 0, 0.15);
-    padding: 10px;
-    width: 300px;
-    height: 50px;
-    margin: 0 auto;
-    text-align: center;
-    outline: none;
-    background: #FFB88D;
-    border: 0;
-    border-radius: 5px;
-    margin: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-  }
-  
-  
+h1 {
+  font-size: 2em;
+}
+a {
+  display: block;
+  margin: 15px;
+}
+
+input[type="text"],
+input[type="number"] {
+  background: none;
+  padding: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  outline: 0;
+  float: right;
+  margin-left: 20px;
+  margin-top: -6px;
+  width: 180px;
+}
+
+body {
+  background-color: rgb(216, 226, 232);
+  text-align: center;
+}
+
+#controller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-bottom: 10px;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+}
+
+button {
+  box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18),
+    0px 4px 12px -7px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  width: 300px;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  outline: none;
+  background: #ffb88d;
+  border: 0;
+  border-radius: 5px;
+  margin: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .navigation {
   position: fixed;
   bottom: 20px;
@@ -71,7 +77,8 @@
 
 .fab {
   display: block;
-  box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18), 0px 4px 12px -7px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 5px 11px -2px rgba(0, 0, 0, 0.18),
+    0px 4px 12px -7px rgba(0, 0, 0, 0.15);
   padding: 10px;
   width: 70px;
   height: 70px;
@@ -87,14 +94,14 @@
 }
 
 .fab .icon {
-  margin-right: -0.20em;
+  margin-right: -0.2em;
   font-size: 3rem;
 }
 
 fab:hover,
 fab:focus,
 fab:active {
-  box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.14), 0 4px 8px rgba(0, 0, 0, 0.28);
 }
 
 #leader-board {
@@ -118,18 +125,20 @@ fab:active {
   box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
 }
 
-.leaderboard h1, .settings h1 {
+.leaderboard h1,
+.settings h1 {
   font-size: 18px;
   padding: 12px 12px;
 }
 
 .leaderboard ol {
   list-style: none;
-} 
+}
 
-.leaderboard ol span, .leaderboard ol small {
+.leaderboard ol span,
+.leaderboard ol small {
   z-index: 3;
-} 
+}
 
 .leaderboard ol li {
   display: flex;
@@ -161,7 +170,7 @@ fab:active {
 }
 
 .leaderboard ol li::after {
-  content: '';
+  content: "";
   position: absolute;
   z-index: 1;
   top: 0;
@@ -170,7 +179,7 @@ fab:active {
   height: 100%;
   background: #ff5555;
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.08);
-  transition: all .3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   opacity: 0;
 }
 
@@ -199,30 +208,25 @@ fab:active {
   border-radius: 0 0 10px 10px;
 }
 
-
 .leaderboard ol li:hover::after {
   opacity: 1;
   transform: scaleX(1.06) scaleY(1.03);
-  transition: all .35s ease-in-out;
+  transition: all 0.35s ease-in-out;
 }
 
-
 .settings {
-  width: 344px;
-  height: 344px;
-  background: #B1E8FF;
+  background: #b1e8ff;
   border-radius: 10px;
   margin: 10px 0;
   box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
-  padding: 0 15px;
+  padding: 15px 15px;
 }
 
-
 .settings > div {
-  height:25px;
-  margin:10px 0;
-  padding:5px 0;
-  text-align:left;
+  height: 25px;
+  margin: 10px 0;
+  padding: 5px 0;
+  text-align: left;
 }
 
 #images {
