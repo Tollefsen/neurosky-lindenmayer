@@ -42,8 +42,12 @@ function set_parametres() {
     speed_slider.value(Math.exp(0.05 * neurosky.attention));
     meditation_slider.value(constrain(neurosky.meditation / 100, 0, 1));
   }
-
-  speed = speed_slider.value();
+  // In the first two seconds, set a linearly increasing cap where speed
+  // cannot exceed 10 until 2 seconds have passed.
+  const elapsed = timer.elapsedSeconds();
+  const startSlowly =
+    elapsed < 2 ? (timer.elapsedSeconds() / 2) * 10 : Infinity;
+  speed = Math.min(startSlowly, speed_slider.value());
   meditation = meditation_slider.value();
 }
 
