@@ -11,7 +11,6 @@ let angle, angle_chaos;
 let speed;
 let meditation;
 
-var player_name;
 var r_input;
 var g_slider;
 var e_slider, ec_slider;
@@ -101,18 +100,36 @@ function generate() {
   }
 }
 
+const countdown = document.getElementById("countdown");
+let countdownInterval;
+
 function resetAll() {
-  timer.start();
-  running = true;
+  running = false;
+  timer.clear();
+  clearInterval(countdownInterval);
   resetMatrix();
   clear();
 
-  currentIndex = 0;
-  for (let p = 0; p < 10; p++) {
-    pop();
-  }
-  generate();
-  loop();
+  let seconds = 5;
+  countdown.textContent = seconds;
+  countdownInterval = setInterval(() => {
+      seconds--;
+      document.getElementById("countdown").textContent = seconds;
+      if (seconds <= 0) {
+        countdown.textContent = '';
+        clearInterval(countdownInterval);
+
+        timer.start();
+        running = true;
+      
+        currentIndex = 0;
+        for (let p = 0; p < 10; p++) {
+          pop();
+        }
+        generate();
+        loop();  
+      }
+  }, 1000);
 }
 
 function saveDrawing() {
@@ -120,7 +137,7 @@ function saveDrawing() {
     .toDataURL("image/png")
     .replace(/^data:image\/png;base64,/, "");
   let http = new XMLHttpRequest();
-  let url = "/save/" + player_name.value();
+  let url = "/save/" + "img";
   http.open("POST", url, true);
   http.send(data);
   //save(email.value() + ".png");
@@ -142,7 +159,6 @@ function setup_controllers() {
   var speed_container = createDiv("Speed").parent("settings");
   var meditation_container = createDiv("Meditation (0-1)").parent("settings");
 
-  player_name = createInput("", "text").parent("flesk");
   r_input = createInput(r1, "text").parent(r_container);
   g_slider = createInput(5, "number").parent(g_container);
   e_slider = createInput(250, "number").parent(e_container);
@@ -284,7 +300,7 @@ function draw() {
         if (pos === 1) {
           modalHeader.innerText = `AMAZING! YOUR FOCUS IS IMPECCABLE (${pos}${positionSuffix})`;
         } else {
-          modalHeader.innerText = `CONGRATZ, YOU PLACED ${pos}${positionSuffix}`;
+          modalHeader.innerText = `WELL DONE, YOU PLACED ${pos}${positionSuffix}`;
         }
       } else {
         modalHeader.innerText = `YOU PLACED ${pos}th, PLEASE FOCUS NEXT TIME`;

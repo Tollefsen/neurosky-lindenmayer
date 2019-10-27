@@ -32,7 +32,8 @@
   </head>
 
   <body>
-    <div id="timer">00:000</div>
+    <div id="timer">00.000</div>
+    <div id="countdown"></div>
     <div id="sketch"></div>
     <div id="controller"></div>
 
@@ -76,7 +77,9 @@
           <br />
           <h4>Enter your name</h4>
         </div>
-        <div class="modal-body" id="flesk"></div>
+        <div class="modal-body" id="modal-body">
+          <input type="text" id="player_name" />
+        </div>
         <div class="modal-footer">
           <button style="background: #E7E7E7" onclick="closeModal()">
             Cancel
@@ -92,6 +95,7 @@
     const settings = document.getElementById("settings");
     const modal = document.getElementById("modal");
     const modalHeader = document.getElementById("modal-header");
+    const nameInput = document.getElementById('player_name');
 
     let settingsVisible = false;
     let scoreboardVisible = false;
@@ -110,16 +114,6 @@
       leaderBoard.classList.remove("visible");
     };
 
-    const save = () => {
-      const player = {
-        name: player_name.value(),
-        score: time
-      };
-      player_name.value("");
-      addPlayer(player);
-      closeModal();
-    };
-
     const closeModal = () => {
       modal.style.display = "none";
     };
@@ -127,6 +121,28 @@
     const openModal = () => {
       modal.style.display = "block";
     };
+
+    const save = () => {
+      const player = {
+        name: player_name.value,
+        score: time
+      };
+      player_name.value = "";
+      addPlayer(player);
+      closeModal();
+    };
+
+    nameInput.addEventListener("keyup", function(event) {
+      if (event.code === 'Enter') {
+        save();
+      }
+    });
+
+    document.addEventListener("keyup", function(event) {
+      if (event.code === 'Space') {
+        resetAll();
+      }
+    });
   </script>
   <script type="text/javascript" src="neurosky_client.js"></script>
   <script src="sketch.js"></script>
