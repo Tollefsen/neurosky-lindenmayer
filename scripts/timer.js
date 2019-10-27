@@ -24,6 +24,11 @@ const timer = (function() {
     timerId = setInterval(update, updateFrequence);
   };
 
+  const elapsedSeconds = () => {
+    msElapsed = startDate ? Date.now() - startDate : 0;
+    return msElapsed / 1000;
+  };
+
   const stop = () => {
     clearInterval(timerId);
     return update();
@@ -34,5 +39,5 @@ const timer = (function() {
     document.getElementById("timer").innerText = "00.000";
   };
 
-  return { start, stop, clear };
+  return { start, stop, clear, elapsedSeconds };
 })();
